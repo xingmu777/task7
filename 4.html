@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            /* 优雅降级 */
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            height:500vh;
+            background-image:linear-gradient(red,yellow);
+        }
+
+        .toTop {
+            display: none;
+            position:fixed;
+            top: 50px;
+            right: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+    <svg class="toTop" xmlns="http://www.w3.org/2000/svg" width="60px" height="60px" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="30" fill="#4fd1d9" />
+        <path fill="#fff" d="M48 30.3L32 15L16 30.3h10.6V49h10.3V30.3z" />
+    </svg>
+</body>
+<script>
+    var toTopElement=document.querySelector(".toTop");
+    var pageHeight = document.body.scrollHeight;
+    window.addEventListener("scroll",function(){
+        if(window.pageYOffset<800) {
+            toTopElement.style.display="none";
+        } else {
+            toTopElement.style.display="block";
+        }
+        console.log("距离底部："+parseInt(getScrollPosition()));
+        if (parseInt(getScrollPosition())==0){
+            document.documentElement.scrollTop=0;
+            //document.documentElement.scrollIntoview();
+            //window.scroll(0,0);
+            //window.scrollTo(0,0);
+            //以上方法搭配scroll-behavior:smooth;使用更佳
+        }
+    })
+
+    toTopElement.addEventListener("click",function (){
+        var htmlActiveStyle = getComputedStyle(document.documentElement);
+        console.log(htmlActiveStyle.scrollBehavior);
+        document.documentElement.scrollTop=0;
+        //document.documentElement.scrollIntoview();
+        //window.scroll(0,0);
+        //window.scrollTo(0,0);
+        //以上方法搭配scroll-behavior:smooth;使用更佳
+    })
+
+    function getScrollPosition() {
+        var scrollTop = document.documentElement.scrollTop;
+        var scrollHeight = document.documentElement.scrollHeight;
+        var clientHeight = document.documentElement.clientHeight;
+        return scrollHeight - scrollTop - clientHeight;
+    }
+</script>
+</html>

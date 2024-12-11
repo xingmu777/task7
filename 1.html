@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .countdown {
+            width: 80vw;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown">
+        <div>
+            <p>Countdown</p>
+            <h2 class="nowSec"></h2>
+        </div>
+        <div>
+            <p>Million Seconds</p>
+            <h2 class="nowMil"></h2>
+        </div>
+        <div>
+            <p>Day Level</p>
+            <h2 class="nowLev"></h2>
+        </div>
+    </div>
+</body>
+<script>
+    var Sec = document.querySelector(".nowSec");
+    var Mil = document.querySelector(".nowMil");
+    var Lev = document.querySelector(".nowLev");
+    var Time = 172800000;
+    var times = setInterval(function () {
+        var Thour = parseInt(Time/3600000);
+        //console.log(Thour);
+        var Tminute = parseInt((Time-Thour*3600000)/60000);
+        //console.log(Thour);
+        var Tseconds = parseInt((Time-Thour*3600000-Tminute*60000)/1000);
+        //console.log(Tseconds);
+        var Tmillion = parseInt((Time-Thour*3600000-Tminute*60000-Tseconds*1000));
+        if(Tmillion<100&&Tmillion>=10) {Tmillion="0"+Tmillion;} else if(Tmillion<10){Tmillion="00"+Tmillion}
+        Sec.innerText=Thour+":"+Tminute+":"+Tseconds;
+        Mil.innerText=Thour+":"+Tminute+":"+Tseconds+":"+Tmillion;
+
+        var Dday = parseInt(Time/43200000);
+        var Dhour = parseInt((Time-Dday*43200000)/3600000);
+        var Dminute = parseInt((Time-Dday*43200000-Dhour*3600000)/60000);
+        var Dseconds = parseInt((Time-Dday*43200000-Dhour*3600000-Dminute*60000)/1000);
+        Lev.innerText=Dday+"天"+Dhour+"时"+Dminute+"分"+Dseconds+"秒";
+        Time-=4;
+    }, 1);
+</script>
+</html>

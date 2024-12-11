@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+        }
+
+        .container {
+            height:100vh;
+            background-image:linear-gradient(red,yellow);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .container button {
+            width: 30vw;
+            height: 100px;
+            font-size: 25px;
+            color: aqua;
+            background-color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="clearmoretime">清除模拟定时器</button>
+        <button class="openmoretime">开模拟定时器</button>
+    </div>
+</body>
+<script>
+    //延时器实现定时器
+
+    function timeoutmore (fn,duration) {
+        var i = 0;
+        window.moreid = setTimeout(function () {
+            fn();
+            timeoutmore(fn,duration);
+            console.log("模拟定时器："+window.moreid);
+        },duration);
+    }
+
+    function cleartimeoutmore() {
+        clearTimeout(window.moreid);
+    }
+
+    var clearTime = document.querySelector(".clearmoretime");
+    clearTime.addEventListener("click",function () {
+        cleartimeoutmore();
+    })
+
+    var openTime = document.querySelector(".openmoretime");
+    openTime.addEventListener("click",function () {
+        timeoutmore(function() {},1000);
+    })
+    
+    timeoutmore(function() {},1000);
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 80vw;
+            color: chocolate;
+            border: 1px solid chocolate;
+
+            text-align: center;
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+
+        .adds {
+            width: 80px;
+            color: chocolate;
+            border: none;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <input class="adds" type="text" value="1000" onblur="addtext(value)" onclick="stoptext()">
+    </div>
+</body>
+<script>
+    var add = document.querySelector(".adds");
+    console.log([add]);
+    function addtext(Value) {
+        var num = 0;
+        console.log(Value);
+        var addtimeID = setInterval(function fn() {
+            if(num<Value&&Value-num<Math.ceil(Value/1000)) {
+                add.value=Value;
+            }
+            else if(num<Value) {
+                num+=Math.ceil(Value/1000);
+                add.value=num;
+            } else clearInterval(addtimeID);
+        },10)
+    }
+</script>
+</html>
